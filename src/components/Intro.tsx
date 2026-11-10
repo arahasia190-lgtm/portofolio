@@ -36,7 +36,18 @@ export function Intro({ onReveal, onDone }: Props) {
 
   useEffect(() => {
     const html = document.documentElement;
+    const body = document.body;
+
+    // Kunci scroll di html DAN body (HP butuh keduanya).
     html.style.overflow = "hidden";
+    html.style.overscrollBehavior = "none";
+    body.style.overflow = "hidden";
+    const unlock = () => {
+      html.style.overflow = "";
+      html.style.overscrollBehavior = "";
+      body.style.overflow = "";
+    };
+
     const reduced = prefersReducedMotion();
 
     let done = 0;
@@ -59,7 +70,7 @@ export function Intro({ onReveal, onDone }: Props) {
     };
 
     const cleanup = () => {
-      html.style.overflow = "";
+      unlock();
       markIntroSeen();
       reveal();
       onDone();
@@ -69,7 +80,7 @@ export function Intro({ onReveal, onDone }: Props) {
       const shown = Math.max(1, Math.min(100, Math.round(p * 100)));
       if (shown !== lastShown && num.current) {
         lastShown = shown;
-        num.current.textContent = String(shown).padStart(3, "\u2007");
+        num.current.textContent = String(shown);
         root.current?.setAttribute("aria-valuenow", String(shown));
       }
       if (bar.current) bar.current.style.transform = `scaleX(${p})`;
@@ -122,14 +133,14 @@ export function Intro({ onReveal, onDone }: Props) {
     return () => {
       cancelAnimationFrame(raf);
       tl?.kill();
-      html.style.overflow = "";
+      unlock();
     };
   }, [onReveal, onDone]);
 
   return (
     <div
       ref={root}
-      className="fixed inset-0 z-50 flex flex-col justify-between bg-[#07101F] px-5 pt-5 pb-8 text-[#E6F0FF] sm:px-10 sm:pb-10"
+      className="fixed inset-0 z-50 flex h-[100dvh] touch-none flex-col justify-between bg-[#07101F] px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-[max(2rem,env(safe-area-inset-bottom))] text-[#E6F0FF] sm:px-10 sm:pb-10"
       role="progressbar"
       aria-label="Memuat halaman"
       aria-valuemin={1}
@@ -150,20 +161,23 @@ export function Intro({ onReveal, onDone }: Props) {
         </button>
       </div>
 
-      <div>
-        <div ref={barBox} className="mb-4 overflow-hidden">
-          <div className="h-[2px] bg-[#1B2E4F]">
-            <div ref={bar} className="h-full origin-left scale-x-0 bg-[#4DA3FF]" />
-          </div>
+      <div
+        ref={numBox}
+        className="flex flex-1 items-center justify-center overflow-hidden"
+        aria-hidden="true"
+      >
+        <div
+          className="relative inline-block font-[760] leading-[0.82] tracking-[-0.04em] tabular-nums"
+          style={{ fontSize: "min(37vw, 21rem)", fontStretch: "75%" }}
+        >
+          <span ref={num}>1</span>
+          <span className="text-[#4DA3FF]">%</span>
         </div>
-        <div ref={numBox} className="overflow-hidden" aria-hidden="true">
-          <div
-            className="relative inline-block font-[760] leading-[0.82] tracking-[-0.04em] tabular-nums"
-            style={{ fontSize: "min(37vw, 21rem)", fontStretch: "75%" }}
-          >
-            <span ref={num}>{"\u2007\u20071"}</span>
-            <span className="text-[#4DA3FF]">%</span>
-          </div>
+      </div>
+
+      <div ref={barBox} className="overflow-hidden">
+        <div className="h-[2px] bg-[#1B2E4F]">
+          <div ref={bar} className="h-full origin-left scale-x-0 bg-[#4DA3FF]" />
         </div>
       </div>
     </div>
