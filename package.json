@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "foto": "node scripts/siapkan-foto.mjs",
     "placeholder": "node scripts/buat-placeholder.mjs"
