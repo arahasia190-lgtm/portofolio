@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/foto.webp" as="image" type="image/webp" fetchpriority="high" />
+    <title>Noval Fawwaz Amanulloh · Rekayasa Perangkat Lunak</title>
+    <meta name="description" content="Portofolio Noval Fawwaz Amanulloh, siswa kelas 12 RPL. Proyek kasir kantin, katalog UMKM, dan absensi QR yang dipakai di sekitar sekolah." />
+    <meta property="og:type" content="profile" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:title" content="Noval Fawwaz Amanulloh · Rekayasa Perangkat Lunak" />
+    <meta property="og:description" content="Portofolio Noval Fawwaz Amanulloh, siswa kelas 12 RPL. Proyek kasir kantin, katalog UMKM, dan absensi QR yang dipakai di sekitar sekolah." />
+    <meta property="og:image" content="/foto.webp" />
+    <meta property="og:image:alt" content="Foto setengah badan Noval memakai seragam sekolah, menghadap kamera" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" href="/assets/bricolage-grotesque-latin-wdth-normal-Dtb2a5nO.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      (function () {
+        var d = document.documentElement;
+        var t = null;
+        try { t = localStorage.getItem("tema"); } catch (e) {}
+        if (t !== "terang" && t !== "gelap") {
+          t = matchMedia("(prefers-color-scheme: dark)").matches ? "gelap" : "terang";
+        }
+        d.dataset.theme = t;
+        var seen = null;
+        try { seen = sessionStorage.getItem("intro-selesai"); } catch (e) {}
+        if (!seen) d.classList.add("has-intro");
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-Dsv-1Vak.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DzuV45ux.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
